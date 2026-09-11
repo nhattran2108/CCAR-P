@@ -10,7 +10,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "Least privilege means granting exactly the permissions a role needs and nothing more, enforced by the system rather than trusted to the model's judgment. A per-role allow-list of just the read-knowledge-base and write-draft-queue tools enforced at the orchestration layer (B) gives precisely the two capabilities the responsibilities require while denying everything else by default. Option A still grants broad global read access, and C relies on the model voluntarily declining tools, which is not an enforceable control; D over-restricts by disabling the very tools the assistant needs to function."
  },
  {
   "id": 2,
@@ -25,7 +26,8 @@
   "ans": [
    "A",
    "C"
-  ]
+  ],
+  "exp": "A sound controlled experiment is fully designed before any data is collected, so the analysis cannot be biased by peeking or post-hoc reasoning. Defining the hypothesis and primary success metric (C) fixes what you are testing and how you will judge it, and determining the minimum detectable effect and required sample size for adequate power (A) ensures the experiment can actually detect a meaningful difference before you begin. Options B, D, and E all describe steps that occur during or after execution, so they cannot be prerequisites to running the experiment."
  },
  {
   "id": 3,
@@ -38,7 +40,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "Unrestricted Bash across all projects and developers grants arbitrary command execution, which is one of the largest possible attack surfaces and violates least privilege. The correct fix is to replace it with narrowly scoped tool patterns permitting only the specific commands the workflows need, plus explicit deny rules for sensitive operations (C), which preserves functionality while minimizing risk. The other choices either expand the attack surface further (A), knowingly accept an unbounded surface for convenience (B), or remove all guardrails entirely (D)."
  },
  {
   "id": 4,
@@ -53,7 +56,8 @@
   "ans": [
    "A",
    "E"
-  ]
+  ],
+  "exp": "Managing stakeholder expectations requires accurate shared data and a realistic, jointly agreed target rather than deflection. Presenting measured p50 and p95 latency against the agreed SLA thresholds (A) grounds the conversation in evidence, and collaboratively revising the SLA when the original targets are not achievable under production constraints (E) realigns expectations honestly. Pausing all work (B) is an over-reaction, dismissing latency as an uncontrollable limitation (C) abandons the team's responsibility, and swapping to an unevaluated third-party model (D) is an unvetted change that does not address expectation alignment."
  },
  {
   "id": 5,
@@ -66,7 +70,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "The problem is context-budget exhaustion caused by loading many tool definitions upfront, so the solution must reduce that overhead without losing capability. Enabling Tool Search (A) defers tool definitions and discovers them on demand, so the schemas are only pulled into context when actually needed, freeing budget while keeping all tools available. Disabling servers (B) loses capability, adding verbosity (C) or more servers (D) consumes even more of the budget, making the problem worse."
  },
  {
   "id": 6,
@@ -81,7 +86,8 @@
   "ans": [
    "B",
    "C"
-  ]
+  ],
+  "exp": "Security gaps are places where sensitive data or access controls can be bypassed or exposed. Putting service credentials into the prompt context (B) risks leaking them into logs, traces, and model outputs, and enforcing role-based access control only at the response-rendering layer (C) means the model has already accessed restricted data before the check, so authorization is applied too late. Options A, D, and E describe sound practices: server-side least-privilege execution, scope-restricted per-user OAuth tokens, and TLS encryption in transit."
  },
  {
   "id": 7,
@@ -94,7 +100,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "An MCP server that fails only on first launch while OS permission dialogs appear is exhibiting expected one-time-grant behavior, not a defect. The appropriate response is to recognize the first-run permission grant as the cause, document it in onboarding guidance, and confirm subsequent runs succeed (A). The alternatives are disproportionate or unverified: reinstalling the OS (B), disabling security dialogs (C), and permanently replacing the server without confirming the retry works (D) all act before diagnosing the benign root cause."
  },
  {
   "id": 8,
@@ -109,7 +116,8 @@
   "ans": [
    "C",
    "E"
-  ]
+  ],
+  "exp": "Failure modes intrinsic to LLM systems arise from the model's probabilistic language behavior rather than from ordinary infrastructure faults. A model refusing a legitimate query because surface features trip an overly broad safety pattern (C) and generating a plausible but unsupported answer, i.e. hallucination (E), are both direct consequences of how the model reasons and is trained. The others (A expired TLS, B database timeout, D load-balancer misrouting) are generic software or infrastructure defects that would occur in any system regardless of an LLM."
  },
  {
   "id": 9,
@@ -124,7 +132,8 @@
   "ans": [
    "C",
    "E"
-  ]
+  ],
+  "exp": "You cannot estimate likelihood and impact of threats until you know what you are protecting and who might attack it. Identifying the assets the deployment touches and their sensitivity (C) and enumerating the relevant threat actors and attack vectors (E) are the inventory steps that must precede threat assessment. Options A, B, and D describe documenting outcomes and recommending mitigations, which are downstream activities that happen only after threats have been analyzed."
  },
  {
   "id": 10,
@@ -139,7 +148,8 @@
   "ans": [
    "C",
    "D"
-  ]
+  ],
+  "exp": "Effective guardrails are layered and verify outputs rather than trusting a single mechanism or the model itself. Validating model output against a structured schema before any downstream action (C) catches malformed or unexpected results at an enforcement point, and layering prompt-level guardrails with independent runtime content checks (D) provides defense in depth so a failure in one layer is caught by another. Approved override phrases (A) create a bypass, lowering temperature (B) reduces randomness but is not a safety control, and relying on a single hardened system prompt (E) is the single-layer approach that defense in depth is meant to avoid."
  },
  {
   "id": 11,
@@ -152,7 +162,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "The correct answer is B because every configured MCP server injects its tool definitions into the model's context at session start, so a large number of servers can consume tens of thousands of tokens before any user turn. When Tool Search is not enabled, all definitions load upfront rather than being fetched on demand, compounding the cost. The other options are wrong because keyboard layouts, font rendering, and display scaling are purely local UI concerns that never enter the token context, and the model does not carry hidden personal preferences that silently eat context budget."
  },
  {
   "id": 12,
@@ -165,7 +176,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "The correct answer is C because project-scope files such as .claude/settings.json and .mcp.json live in the repository itself, so committing them means every engineer who clones or pulls the repo automatically receives identical MCP definitions with no manual sync. Managed/administrator-pushed configuration (A) is an enterprise control plane not tied to a single repo's shared definitions, OS-level environment variables (B) and per-user ~/.claude files (D) both require each engineer to configure their own machine, which is exactly the manual synchronization the manager wants to avoid."
  },
  {
   "id": 13,
@@ -178,7 +190,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "The correct answer is C because Claude Code evaluates permissions across a defined precedence of scopes (managed, command-line, local, project, and user), and a denial can originate from any of them; inspecting all active rules identifies exactly which rule fired and whether it is intentional. Blindly retrying (A) does nothing to change the underlying rule, and disabling the permission system entirely (B) or granting unrestricted Bash (D) removes safety controls wholesale instead of amending only the specific offending rule, which violates least-privilege practice."
  },
  {
   "id": 14,
@@ -191,7 +204,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "The correct answer is A because the stated goal is AI-assisted review that preserves human approval, so having Claude post a structured analysis as a comment while a human retains the merge decision under existing branch-protection rules keeps a human in the loop as the required gate. Auto-merging (B) or disabling branch protection (C) removes that human approval, and silently deleting pull requests (D) is both destructive and non-transparent, undermining reviewer trust and auditability."
  },
  {
   "id": 15,
@@ -204,7 +218,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "The correct answer is D because the security officer has set a hard constraint that customer financial data must stay within an approved network boundary, and any data-handling behavior that violates that boundary is a disqualifying compliance failure regardless of cost or capacity savings. Pattern mapping (A), token cost (B), and bus-topology support (C) are meaningful engineering considerations but are secondary optimizations that only matter if the non-negotiable data-residency requirement is first satisfied."
  },
  {
   "id": 16,
@@ -219,7 +234,8 @@
   "ans": [
    "A",
    "E"
-  ]
+  ],
+  "exp": "The correct answers are A and E because sound technical writing starts by defining the audience and the questions the guide must answer, then outlining the section structure (overview, components, contracts, flows, runbooks, limitations) so drafting has a clear scope and skeleton. Translation (B), validation with the implementation team (C), and version-control/review cadence (D) are valuable, but they are downstream or parallel activities that logically come after content exists, not prerequisites to drafting each section."
  },
  {
   "id": 17,
@@ -246,7 +262,8 @@
     "s": "Random sampling of a data store is a sound retrieval strategy for production Q&A.",
     "a": "No"
    }
-  ]
+  ],
+  "exp": "Dense vector retrieval is Yes because embeddings capture semantic similarity, so it recovers paraphrased intent over unstructured text well. Sparse term-matching is Yes because exact-token methods like BM25 reliably surface specific identifiers and rare tokens that dense embeddings can blur. Structured query retrieval is Yes because filter-and-aggregate workloads over a relational store with schema and indexes are exactly what SQL-style querying is built for. The hybrid claim is No because hybrid combines dense and sparse signals and therefore has different, typically better, recall than dense-only. Random sampling is No because it ignores the query entirely and cannot reliably return relevant answers for production Q&A."
  },
  {
   "id": 18,
@@ -261,7 +278,8 @@
   "ans": [
    "C",
    "E"
-  ]
+  ],
+  "exp": "The correct answers are C and E because the behavior changed with no retrieval-pipeline change, so the two most direct causes are the generation side: testing whether the failure reproduces on the previous model version isolates a model/version mismatch, and inspecting the system-prompt grounding and citation constraints checks whether the instructions that force answers to stay faithful to sources are still intact. Enlarging the context window (A), swapping to a denser embedding model (B), and lowering temperature (D) all tune retrieval or sampling variance rather than diagnosing why the model is contradicting sources it was given."
  },
  {
   "id": 19,
@@ -274,7 +292,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "The correct answer is A because each statement maps to the value pillar its metric describes: 3x more purchase orders per analyst per day is throughput gain, i.e. Efficiency; eliminating a role and redeploying staff is a structural change to how work is done, i.e. Transformation; being 40% over per-transaction budget is Solution Cost; and missing the 5-second latency commitment is a Performance SLA issue. The other options mislabel these, for example calling the role elimination Productivity or swapping the cost and SLA assignments, which conflates distinct pillars."
  },
  {
   "id": 20,
@@ -301,7 +320,8 @@
     "s": "routing inbound support tickets into 30 categories with reasoning for the chosen routing",
     "a": "Yes"
    }
-  ]
+  ],
+  "exp": "Drafting first-pass investigative reports from semi-structured logs for analyst review is Yes because summarization and drafting for human review play to Claude's language strengths. Sub-50ms real-time fraud scoring is No because LLM inference latency cannot meet that streaming budget; a lightweight ML model belongs there. Long-context contract review with clause extraction and deviation flagging is Yes because it needs reasoning over large documents, a core Claude strength. Replacing a vector index for semantic retrieval over millions of documents is No because Claude is the reasoning layer, not the retrieval index; you pair it with a vector store rather than substituting it. Routing tickets into 30 categories with reasoning is Yes because nuanced classification with justification suits an LLM well."
  },
  {
   "id": 21,
@@ -314,7 +334,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "The iteration phase of a deployed system is a continuous improvement loop that consumes evidence from production and feeds it back into planning. The correct choice (D) reflects this: reviewing telemetry, sampled output evaluations, and stakeholder feedback to prioritize the single highest-impact change, then planning it against a stable evaluation framework so improvement can be measured. The other options describe anti-patterns: rebuilding from scratch each cycle (A) discards accumulated learning, and stopping measurement (B) or discarding the evaluation framework and reference set (C) removes the very basis needed to know whether iterations help or harm."
  },
  {
   "id": 22,
@@ -350,7 +371,8 @@
     "s": "hierarchical chunking that mirrors document section structure:",
     "a": "Long Structured Documents"
    }
-  ]
+  ],
+  "exp": "Chunking strategy should match the structure of the corpus so retrieval returns coherent, self-contained units. Function-level or section-level chunking and tree-aware chunking both follow the natural boundaries of code and nested specifications, so they map to Code or Hierarchical Specs. Per-record chunking (one record per chunk) and fixed-size chunking with overlap for short, similar-length items fit Heterogeneous Short Records, where each record is already an atomic unit. Semantic chunking along clause or paragraph boundaries and hierarchical chunking that mirrors document section structure fit Long Structured Documents, where preserving section and paragraph organization keeps context intact."
  },
  {
   "id": 23,
@@ -377,7 +399,8 @@
     "s": "Behavioral differences across model versions can be ignored once a prompt has been validated on one version.",
     "a": "No"
    }
-  ]
+  ],
+  "exp": "Zero-shot is a reasonable starting point for closed-set classification when the categories and their descriptions are given in the prompt, so that claim is sound (Yes). Few-shot examples that use the exact field names anchor output formatting on extraction tasks, which is also correct (Yes). Chain-of-thought as a default on every task is not sound (No) because it adds latency and cost and can even hurt on simple tasks; it should be applied where reasoning genuinely helps. Mitigating leading-question bias by requesting an even-handed comparison against stated criteria is good practice (Yes). Ignoring behavioral differences across model versions after validating on one version is wrong (No), since a new model version can change behavior and prompts should be re-evaluated per version."
  },
  {
   "id": 24,
@@ -390,7 +413,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "Silent quality drift on safety-relevant outputs after a version upgrade is only catchable if every upgrade is scored the same way before it reaches users. The correct approach (D) maintains a fixed adversarial evaluation set with version-attributed scoring so each upgrade is measured against the identical set and gated before promotion. Disabling adversarial evaluation (A) or skipping it and relying on user complaints (C) lets drift reach production undetected, and randomly rotating inputs so no two upgrades share a set (B) destroys comparability, making version-over-version drift impossible to detect."
  },
  {
   "id": 25,
@@ -403,7 +427,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "Injected claims of admin authority are a form of prompt injection, and the robust defense is layered rather than relying on any single control. The correct combination (B) treats all user content as untrusted data at the prompt level, uses runtime classifiers to detect override attempts, scopes tool permissions so they cannot be elevated by anything in user content, and logs attempts for audit. Trusting the model to intrinsically reject everything (A) has no enforcement, removing all guardrails (C) defeats the purpose of safety, and honoring self-declared authority (D) is exactly the vulnerability being exploited."
  },
  {
   "id": 26,
@@ -418,7 +443,8 @@
   "ans": [
    "B",
    "E"
-  ]
+  ],
+  "exp": "Because the failure began right after a maintenance window and produces malformed JSON, the fastest way to isolate the cause is to check what changed and to observe raw model output directly. Comparing the current system prompt and output schema configuration against the last known good pre-maintenance version (B) surfaces configuration changes introduced during the window. Replaying pre-maintenance requests against the current configuration and inspecting raw output before parsing (E) isolates whether the model itself now emits bad JSON versus a downstream parsing issue. Clearing the cache (A), switching model tier (C), or raising max_tokens (D) are speculative fixes that change variables without first identifying the regression."
  },
  {
   "id": 27,
@@ -431,7 +457,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "With 280 developers across 14 teams, the governance goal is to keep Skills trustworthy while avoiding a single-team bottleneck. A federated model (D) lets each team author Skills relevant to its domain while a central review-and-publication gate enforces consistent quality and trust before Skills are shared. Centralized authorship by one platform team (B) creates the bottleneck to avoid, while per-developer (A) or fully decentralized (C) authorship with no review sacrifices the trust and consistency needed for shared coding standards and templates."
  },
  {
   "id": 28,
@@ -444,7 +471,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "A clean design-to-implementation handoff requires the delivery team to have everything needed to build, evaluate, operate, and understand the system's boundaries. The complete package (C) includes an architecture overview, architecture decision records, component contracts, an evaluation framework with a reference set, runbooks, an on-call playbook, and a known-limitations register. The other options are deficient: slides without diagrams or contracts (A), a verbal-only walkthrough with nothing written (B), and source code alone with no integrating documentation (D) all leave the implementation team without the decisions, interfaces, or operational guidance required to proceed reliably."
  },
  {
   "id": 29,
@@ -459,7 +487,8 @@
   "ans": [
    "D",
    "E"
-  ]
+  ],
+  "exp": "The two findings are a shared API key and tool calls with no record of who initiated them, so the mitigations must address identity and attribution directly. Replacing the shared key with per-user OAuth tokens carrying scope-restricted permissions (E) fixes the shared-credential problem and enables per-user accountability and least privilege. Adding actor attribution to tool-call logs so each call records the initiating user (D) fixes the missing-audit-trail problem. Schema validation (A), retrieval-layer RBAC (B), and moving credentials to a secret store (C) are all sound practices but do not target these two specific findings."
  },
  {
   "id": 30,
@@ -474,7 +503,8 @@
   "ans": [
    "C",
    "D"
-  ]
+  ],
+  "exp": "The assertion is flawed because a model that was not fine-tuned on company data can still inherit demographic biases from its pretraining corpus, and those biases can influence candidate-screening outcomes (C). The appropriate response is to evaluate the system on outcome-disparity metrics across protected groups before deployment (D), since fairness must be measured empirically on actual outputs rather than assumed absent. The distractors are wrong because mere disclosure does not satisfy fairness obligations (A), fairness testing is not conditional on training data containing protected labels (B), and a provider's responsible-use policy does not substitute for evaluating your own deployed outcomes (E)."
  },
  {
   "id": 31,
@@ -487,7 +517,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "Non-functional requirements describe how well the system must perform rather than what functional task it performs. Option D specifies a p95 latency target under a given load, which is a quality-of-service constraint (performance) rather than a feature. Options A, B, and C all describe functional behaviors: extracting fields, producing an editable draft, and classifying tickets are things the system does, not quality attributes it must satisfy."
  },
  {
   "id": 32,
@@ -523,7 +554,8 @@
     "s": "optical character recognition on scanned invoice images:",
     "a": "Pre-Processing"
    }
-  ]
+  ],
+  "exp": "OCR and PII redaction happen before the model is invoked, so they are Pre-Processing steps that transform raw input into model-ready text. Claude-based classification and Claude-based extraction are the Model Stage, since they are the actual LLM inference calls. Schema validation of extracted fields and persistence of validated records occur after inference to verify and store the model's output, making them Post-Processing. The key principle is sequencing relative to the model call: transform inputs first, invoke the model, then validate and persist results."
  },
  {
   "id": 33,
@@ -538,7 +570,8 @@
   "ans": [
    "C",
    "D"
-  ]
+  ],
+  "exp": "A high first-response acceptance rate measures whether users initially accept an output, not whether the output is actually correct or complete. Option D captures that acceptance is not a proxy for correctness, especially since specialists later override recommendations after deeper review. Option C identifies that the criteria the assistant never evaluates constitute a genuine scope gap in its input space, meaning it lacks information needed to make sound recommendations. Option A is wrong because it overstates what acceptance proves; B and E raise legitimate but secondary methodological points that are not the core Discernment concerns exposed by the override pattern."
  },
  {
   "id": 34,
@@ -553,7 +586,8 @@
   "ans": [
    "C",
    "E"
-  ]
+  ],
+  "exp": "The constraint is to cut cost without changing accuracy, so the safe optimizations remove redundant token processing rather than altering what the model sees or which model runs. Option C caches the static 6,000-token policy preamble so the repeated prefix is not reprocessed at full cost on every call, and option E caches commonly retrieved sales chunks to avoid re-fetching and re-billing identical context. Both preserve the exact inputs and model, so accuracy is unaffected. Options A and B reduce the content the model receives (fewer chunks or a truncated preamble), and D swaps to a smaller model, all of which risk changing accuracy and therefore violate the constraint."
  },
  {
   "id": 35,
@@ -566,7 +600,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "A Skill packages procedural knowledge, fixed instructions, and embedded examples that Claude loads and follows, and it is portable across claude.ai, API integrations, and Claude Code. Option D matches this exactly: the capability is a defined authoring procedure needing no live external system calls. MCP servers are the right choice when you must connect to live systems, databases, or authenticated external services, so options A and C actually argue against a Skill, and B (command-line callability) is satisfied by a Skill anyway and is not the deciding factor."
  },
  {
   "id": 36,
@@ -593,7 +628,8 @@
     "s": "A read-only policy-document tool that returns the relevant procurement policies",
     "a": "Yes"
    }
-  ]
+  ],
+  "exp": "Least-privilege means the agent should retain only the tools required to draft purchase requests for review. The read-only catalog lookup, the draft-write tool that creates drafts in the review queue, and the read-only policy-document tool all directly support drafting and stay. The inbox-send tool that emails vendors directly should be removed because it exceeds the draft-for-review scope and could send unreviewed requests. The production-database admin tool is unrelated to procurement and grants broad, unnecessary privilege, so it must also be removed."
  },
  {
   "id": 37,
@@ -620,7 +656,8 @@
     "s": "Selecting a model based on which version was most recently announced is the right basis for production decisions.",
     "a": "No"
    }
-  ]
+  ],
+  "exp": "Heavier-reasoning models generally do more computation, so they run slower and consume more of the rate/token budget on the same input, making the first statement true. Confirming a model choice with a representative-sample evaluation on the actual target workload is sound practice, and tiered routing that sends routine traffic to a lighter model while reserving a heavier model for demanding traffic is a valid cost/capability strategy, so both are true. The claim that the most capable model is always right ignores cost, latency, and workload fit, and choosing a model merely because it was announced most recently is not an evidence-based production decision, so both of those are false."
  },
  {
   "id": 38,
@@ -635,7 +672,8 @@
   "ans": [
    "B",
    "C"
-  ]
+  ],
+  "exp": "The objective is to improve developer workflow, which is best served by minimizing friction and context switching. Option C is correct because Claude Code in the IDE delivers assistance at the point of development, avoiding tool-switching. Option B correctly notes that routing requests through a Slack bot forces developers out of the IDE, adding friction that undermines productivity. Options A and D overstate incidental benefits of Slack (audit logs, async queues) that do not address the core workflow goal, and E is wrong because integration point materially affects developer experience even when model capabilities are identical."
  },
  {
   "id": 39,
@@ -648,7 +686,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "The same 80,000-token filing is queried 14 times, so caching it as a prompt prefix lets those repeated queries reuse the cached context at reduced cost while the model still sees the full filing, preserving quality, and prompt caching operates within the tenancy without exporting contents. Option A summarizing loses detail and degrades response quality; option C indexing in a vector store risks storing filing contents outside tenancy and returns only partial passages, hurting quality; option D a smaller model lowers per-token cost but can reduce answer quality. Only option B cuts per-query cost while preserving both quality and the data-residency requirement."
  },
  {
   "id": 40,
@@ -663,7 +702,8 @@
   "ans": [
    "A",
    "D"
-  ]
+  ],
+  "exp": "The two goals are safety under attack and cross-component correctness, so the priorities should map to each. Option A adversarial testing with prompt-injection and malformed inputs directly probes safety when the system is attacked, which is critical for sensitive financial data. Option D integration testing verifies end-to-end behavior across all components, covering cross-component correctness. Regression, smoke, and unit tests (B, C, E) are valuable but each addresses narrower concerns and does not target adversarial safety or full pipeline integration as the question requires."
  },
  {
   "id": 41,
@@ -678,7 +718,8 @@
   "ans": [
    "A",
    "B"
-  ]
+  ],
+  "exp": "Prompt caching on a static system-prompt prefix (A) lets Claude skip reprocessing repeated tokens, so repeated calls bill fewer input tokens and start generating sooner, cutting both cost and latency. Routing simple queries to a smaller, faster model while reserving the full model for hard cases (B) reduces spend and time-to-first-token for the bulk of traffic without hurting quality on the core use case. Raising max_tokens (C) and adding few-shot examples (E) increase token volume and latency, and pulling the full corpus into context (D) inflates input tokens and slows generation, so none of those target both dimensions favorably."
  },
  {
   "id": 42,
@@ -693,7 +734,8 @@
   "ans": [
    "B",
    "E"
-  ]
+  ],
+  "exp": "Before you can map data flows to specific clauses, you must first establish that the regulation even applies, which comes from analyzing the data types processed, the jurisdiction, and the audience (B). You also need to inventory what compliance affordances the vendor already provides (E) so you know which controls are in place before assessing them against clauses. Comparing controls to requirements (A), documenting gaps (D), and scheduling remediation (C) all logically occur after the applicability and control inventory are established, so they are downstream steps, not prerequisites."
  },
  {
   "id": 43,
@@ -708,7 +750,8 @@
   "ans": [
    "A",
    "C"
-  ]
+  ],
+  "exp": "Sound diligence treats a single fabricated citation as a signal to quantify, so sampling recent summaries (A) estimates how often fabrication actually occurs across the population rather than guessing. Reviewing whether any citation-grounding controls exist in the pipeline (C) determines whether this is a systemic architectural gap or a rare miss. Disabling the assistant with no diagnosis (B) is disproportionate, claiming by design it never fabricates (D) is false since LLMs can hallucinate, and dismissing it as isolated with no investigation (E) abandons the diligence responsibility entirely."
  },
  {
   "id": 44,
@@ -723,7 +766,8 @@
   "ans": [
    "C",
    "E"
-  ]
+  ],
+  "exp": "Control A restricts outbound tool calls with an allowlist, destination limits, and per-call review, which directly prevents a compromised or manipulated agent from sending data to unauthorized endpoints, matching data exfiltration via outbound tool calls (C). Control B repeatedly scores responses against a stable adversarial evaluation set after each model-version change, which is precisely how you catch silent quality drift introduced by an upgrade (E). Control A does not address prompt injection detection or quality drift, and Control B does nothing to constrain outbound network destinations, so the other pairings are mismatched."
  },
  {
   "id": 45,
@@ -738,7 +782,8 @@
   "ans": [
    "C",
    "D"
-  ]
+  ],
+  "exp": "Empirical testing on a representative sample requires that you first know what you are testing against, so defining the quality bar, latency tolerance, and expected volume (D) must come first. You then choose a candidate model based on that requirements profile and the models' known capabilities (C) so there is something concrete to test. Selecting the lightest passing model (A), retesting on new versions (B), and signing off the rollout (E) are all activities that depend on test results and therefore come after the sample run, not before."
  },
  {
   "id": 46,
@@ -751,7 +796,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "An effective operational runbook must give the on-call engineer everything needed to act, which means common alerts with their triage steps, escalation paths, rollback procedures, and links to the relevant dashboards and logs (B). The other options each omit essential pieces, such as leaving out triage steps, escalation paths, or rollback procedures, which would strand the responder mid-incident. A runbook that only points to dashboards without telling the engineer how to interpret alerts or recover is not actionable under pressure."
  },
  {
   "id": 47,
@@ -764,7 +810,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "Productive stakeholder feedback depends on preparation and durable records, so a focused agenda, artifacts shared in advance, written decisions and follow-ups, and confirmed owners and dates (B) maximize the value of participants' time and ensure outcomes survive the meeting. Open-ended sessions with no agenda (A) or artifacts distributed only at the start (C) force real-time review and reduce the quality of input. Ending without recording decisions and owners (D) relies on memory and predictably loses accountability and follow-through."
  },
  {
   "id": 48,
@@ -777,7 +824,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "To keep generated documentation grounded in the actual implementation, subagents must read the real code via filesystem and code-search tools, then emit changes through the team's normal review workflow (C), which combines factual grounding with human oversight. Generating from training-data recall (A) or disabling code-reading tools (D) disconnects the output from the current code and invites inaccuracy. Publishing directly to a public site with no review (B) removes the human approval step and risks shipping errors, so it fails the grounding-plus-governance requirement."
  },
  {
   "id": 49,
@@ -800,7 +848,8 @@
     "s": "Conversation logs include unredacted government identifiers to maximize signal for tuning.",
     "a": "No"
    }
-  ]
+  ],
+  "exp": "Running authentication and authorization before retrieval is sound (Yes) because identity must be known so retrieval can filter results to what the user is permitted to see, preventing data leakage. An asynchronous queue between intake and model invocation is sound (Yes) because it absorbs bursty traffic and smooths load across the model layer at scale. Encoding tax computation in the system prompt is unsound (No) because deterministic calculations belong in tested, auditable code rather than probabilistic generation. Logging unredacted government identifiers is unsound (No) because it violates data-minimization and privacy principles regardless of any tuning benefit."
  },
  {
   "id": 50,
@@ -813,7 +862,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "A mixed audience is best served by layering the message: lead with the decision, the business outcomes it serves, and the trade-offs accepted for the executive sponsor, then follow with technical rationale, alternatives, and implementation implications for the engineering leads (B). Opening with low-level details (A) loses the executive and omits business framing, while simply announcing the decision with no rationale (C) leaves everyone unable to validate or implement it. A single undifferentiated narrative (D) fails to match depth to each audience's needs and wastes attention."
  },
  {
   "id": 51,
@@ -826,7 +876,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "A retrieval-augmented augmented LLM constrained to the authoritative internal corpus with per-answer citations is the right fit because it keeps answers grounded in the approved source set, produces auditable references, and adds only a single retrieval step so latency and cost stay predictable. Multi-agent orchestration (B) adds latency, cost, and non-determinism that undermine audit predictability for a bounded Q&A task. An open web-browsing agent loop (C) breaks the requirement to cite only authoritative internal sources, and concatenating the whole corpus into every request (D) is expensive, hits context limits, and dilutes relevance without giving targeted citations."
  },
  {
   "id": 52,
@@ -839,7 +890,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "Role-based access control must be enforced at the retrieval layer so that content a role may not see is never fetched into the prompt or exposed to the model. Relying on a natural-language system-prompt instruction (A) or the model's general refusal behavior (C) is not a real access control because the model can be manipulated or can leak restricted text once it is in context. Post-filtering after generation (D) is unsafe because the unauthorized data has already entered the prompt and could influence or appear in the output; enforcement must happen before prompt construction."
  },
  {
   "id": 53,
@@ -852,7 +904,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "Haiku matches high-volume, latency-sensitive classification against well-defined labels because such work needs limited reasoning depth and benefits most from low cost and fast responses. Opus (A) applies maximum reasoning to every message, wasting cost and latency on simple decisions. Choosing Sonnet by default (C) or Sonnet with extended thinking on every request (D) ignores the strict per-message latency budget; extended thinking in particular adds token and time overhead that is unjustified for routine, clearly-defined moderation labels."
  },
  {
   "id": 54,
@@ -867,7 +920,8 @@
   "ans": [
    "B",
    "E"
-  ]
+  ],
+  "exp": "The two controls that directly enforce a no-investment-advice rule are an output classifier (B) that detects and blocks regulated-recommendation language before it reaches the user, and explicit out-of-scope definitions with fixed refusal phrasing in the system prompt (E) that steer the model to decline such requests. Raising temperature (A) increases variability and makes behavior less controllable, not safer. Limiting session length (C) and logging queries to a SIEM (D) are operational or after-the-fact measures that do not prevent a prohibited recommendation from being produced and shown in a single response."
  },
  {
   "id": 55,
@@ -880,7 +934,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "The best response acknowledges the request, transparently states its scope and timeline implications, and offers concrete tradeoff options such as deferring, descoping something else, or extending the timeline for the stakeholder to choose (C). This respects the underlying need while keeping expectations and delivery realistic. Hiding the request (A), flatly declining without alternatives (B), or silently absorbing the scope until it surfaces as delays (D) all damage trust, transparency, or the delivery plan."
  },
  {
   "id": 56,
@@ -893,7 +948,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "The clearest exfiltration risk is adversarial content in a retrieved document instructing the model to invoke the outbound HTTP tool and send sensitive data to an attacker-controlled URL (C); this is an indirect prompt-injection attack chaining an untrusted input to a sensitive outbound action. The other options describe normal, authorized behavior: an allow-listed outbound call for a user-initiated lookup (A), a routine question and answer (B), and retrieval of a document the user is permitted to view (D) none of which involve untrusted instructions driving data to an unauthorized destination."
  },
  {
   "id": 57,
@@ -908,7 +964,8 @@
   "ans": [
    "B",
    "C"
-  ]
+  ],
+  "exp": "An ethics-review checklist should verify that outputs do not rely on unsupported generalizations about people (B), guarding against bias and unfounded inferences, and that high-impact decisions retain human accountability rather than being attributed to the model (C), preserving meaningful human oversight. Vendor licensing (A) is a legal/procurement concern and latency/throughput (E) is a performance concern, neither of which is an ethics check. Restricting ethics review only to high-confidence outputs (D) is backwards, since low-confidence and edge cases often carry the greatest ethical risk."
  },
  {
   "id": 58,
@@ -923,7 +980,8 @@
   "ans": [
    "B",
    "E"
-  ]
+  ],
+  "exp": "Robust guardrail design includes per-role tool allow-lists enforced at the orchestration layer before any tool executes (B), which deterministically prevents unauthorized actions, and adversarial-input coverage in the evaluation set with regression tracking (E), which ensures guardrails are tested against attacks and stay effective over time. Log retention with quarterly review (A), user feedback channels (C), and refreshing prompt wording (D) are useful supporting practices but are reactive or cosmetic; they do not by themselves enforce or continuously validate the guardrail the way pre-execution enforcement and adversarial regression testing do."
  },
  {
   "id": 59,
@@ -936,7 +994,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "Risk-stratified sampling that reviews all low-confidence and high-impact outputs plus a smaller random sample of high-confidence routine ones (B) concentrates scarce human attention where errors are most likely or most costly while still monitoring the routine tier. Relying on user complaints (A) catches problems only after harm. Inverse sampling (C) reviews exactly the wrong cases, skipping the risky ones. Universal review (D) defeats the purpose in a high-volume pipeline where reviewing everything is infeasible."
  },
  {
   "id": 60,
@@ -949,7 +1008,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "When a sponsor cannot name the failing journey, the metric, or the decision the AI should support, the first action is to facilitate a structured discovery to define the failing decision and target metric (D); building anything before the problem is framed risks solving the wrong thing. Prototyping a generic assistant (B) or committing to an assumed fixed scope (C) proceeds without a validated problem definition, and simply telling the sponsor to resubmit later (A) abdicates the delegation responsibility to help clarify the need collaboratively."
  },
  {
   "id": 61,
@@ -964,7 +1024,8 @@
   "ans": [
    "A",
    "B"
-  ]
+  ],
+  "exp": "Fairness cannot be established from approval-rate parity and agreement with humans alone. Approval-rate parity checks whether groups are approved at similar rates, but it says nothing about error-rate parity, so a model could equalize approvals while making disproportionate false rejections or false approvals for one group (A). Matching human underwriters 94 percent of the time only shows the model reproduces underwriter decisions, and if those historical decisions carried bias the model faithfully inherits it rather than being cleared of it (B). Option C is wrong because a high match rate is agreement, not fairness; D and E introduce assumptions about missed groups or sample size that the scenario does not support."
  },
  {
   "id": 62,
@@ -977,7 +1038,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "When per-turn latency is the binding constraint and routine quality is already acceptable, the goal is to cut work that does not add value. Reducing retrieval to the top-k passages that historically cover the answer trims the tokens the model must process, and caching stable system-prompt content lets that prefix be reused so it is not reprocessed each turn, both directly lowering latency with little quality loss (B). Disabling prompt caching (A) removes a latency win, increasing retrieval to the maximum (C) adds latency for marginal recall, and always using the heaviest model (D) worsens the latency SLO."
  },
  {
   "id": 63,
@@ -992,7 +1054,8 @@
   "ans": [
    "D",
    "E"
-  ]
+  ],
+  "exp": "A durable alignment routine for many stakeholders needs mechanisms that keep shared understanding accurate over time and resolve genuine disagreement. Setting a regular cadence to revisit expectations and assumptions ensures the agreement stays valid as conditions change rather than drifting silently (D). Explicitly reconciling divergent positions surfaces and resolves conflict instead of leaving hidden disagreements that resurface later as misalignment (E). Recording sessions (A) and rotating facilitation (C) are logistics that do not by themselves create alignment, and automatically escalating every disagreement to an executive (B) undermines stakeholder ownership and healthy negotiation."
  },
  {
   "id": 64,
@@ -1007,7 +1070,8 @@
   "ans": [
    "A",
    "B"
-  ]
+  ],
+  "exp": "A handoff package is self-sufficient when it lets implementers build and make decisions without asking the architect. Specifying integration contracts, configuration schemas, and expected input/output shapes gives the team the concrete interfaces needed to implement each component correctly (A). A decision log capturing rationale and rejected alternatives lets implementers understand constraints and avoid re-litigating or accidentally undoing key choices (B). A high-level narrative without component detail (C) is insufficient to build from, listing the architect's contact info (D) signals ongoing dependence rather than sufficiency, and naming evaluated models without stating the selection or reasoning (E) leaves a critical decision unresolved."
  },
  {
   "id": 65,
@@ -1020,7 +1084,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "Two directly contradictory instructions cannot both be satisfied, and leaving the conflict in place produces unpredictable behavior because the model has no principled way to reconcile them. The correct fix is to remove or rewrite the gap-filling instruction so the prompt consistently constrains the model to source-supported content, eliminating the contradiction at its root (B). Adding a meta-instruction to pick whichever seems appropriate (A) or relying on the model to choose per request (D) preserves the ambiguity, and raising temperature (C) increases randomness rather than resolving anything."
  },
  {
   "id": 66,
@@ -1033,7 +1098,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "The job has a fixed, predictable sequence of steps, which is the defining case for a workflow rather than an agent. A workflow pattern is the best fit because the steps are well-defined and predictable, giving deterministic, lower-cost, and more controllable execution than open-ended agentic planning (D). Option A is factually wrong because workflows can invoke tools, and B and C overstate agents, which are not categorically more accurate or more consistent for structured, predictable pipelines; open-ended planning adds unnecessary variability and cost here."
  },
  {
   "id": 67,
@@ -1048,7 +1114,8 @@
   "ans": [
    "C",
    "E"
-  ]
+  ],
+  "exp": "The decline in accuracy and rise in tool-selection latency point to an overloaded, unfocused tool surface, which is what decomposition addresses. The fact that the 34 tools serve four distinct claim-workflow domains shows the agent's scope has fragmented and should be split into focused agents per domain, directly motivating decomposition (C). Noting that a router adds a model call on every request shows the proposed shortcut adds latency and cost without fixing the underlying scope problem, so decomposition should come first (E). Overlapping descriptions (A) and unused tools (B) are cleanup items rather than decomposition drivers, and the router being well-documented (D) is not evidence about this system."
  },
  {
   "id": 68,
@@ -1061,7 +1128,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "To guarantee a setting cannot be overridden by any individual engineer, it must be enforced from a higher-authority scope that local settings cannot supersede. Managed configuration applied centrally and marked as non-overridable is precisely the mechanism that locks a value against per-user changes (C). User scope (A) and project scope (D) can be edited by engineers or contributors, and a CI/CD environment variable (B) only affects pipeline runs, not the engineers' local sessions, so none of those enforce the requirement."
  },
  {
   "id": 69,
@@ -1076,7 +1144,8 @@
   "ans": [
    "A",
    "B"
-  ]
+  ],
+  "exp": "User scope is the right place for personal preferences that should follow an individual engineer across all their projects but not be imposed on others. A personal editor theme (A) and a preferred Claude response language that applies to every repository the engineer uses (B) are exactly these portable, per-person preferences. Enforcing a company-wide policy (C) belongs in managed/enterprise scope so it cannot be overridden, MCP endpoints shared by all contributors to one repo (D) belong in project scope, and API keys (E) should live in secure secret storage or environment variables rather than user settings."
  },
  {
   "id": 70,
@@ -1091,7 +1160,8 @@
   "ans": [
    "D",
    "E"
-  ]
+  ],
+  "exp": "Choosing between MCP, direct API integration, and agent-to-agent handoff should be driven by intrinsic properties of the integration, not incidental team factors. Portability across multiple AI clients favors a standardized protocol like MCP, so whether the integration must work across many clients is a genuine deciding factor (D). The interaction's nature, stateless and latency-sensitive versus stateful and longer-running, maps directly onto which pattern fits, since direct calls suit quick stateless work while agent handoffs suit stateful, longer tasks (E). Vendor documentation quality (A), prior team experience (B), and transport encryption (C) are real considerations but do not by themselves determine the correct integration pattern."
  },
  {
   "id": 71,
@@ -1104,7 +1174,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "A single, stateless, low-latency call to a service that already exposes a stable HTTP API is best served by a direct API call using appropriately scoped credentials, because that adds the least latency, complexity, and surface area. A long-lived stateful session protocol (B) is overkill and adds overhead for a one-shot interaction. A bespoke streaming protocol over an unrelated message bus (C) introduces needless coupling and failure modes, and inserting another Claude agent in front of the service (D) adds cost, latency, and non-determinism with no benefit for a simple deterministic lookup."
  },
  {
   "id": 72,
@@ -1117,7 +1188,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "The failure is ungrounded generation, where the model asserts claims the retrieved sources do not support, so the most direct mitigation is to constrain answers to source-supported content, require citations, and add a verification step that checks claims against the sources. This directly closes the gap between output and evidence rather than addressing a different concern. Adversarial evaluation (B) helps detect regressions but does not itself enforce grounding at inference time; OAuth tokens (C) address access control, and treating retrieved data as untrusted with input classifiers (D) targets injection or unsafe input, not fidelity to sources."
  },
  {
   "id": 73,
@@ -1130,7 +1202,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "Consistent escalation requires objective, pre-defined triggers, which is why option D is correct: a confidence threshold, enumerated high-impact decision categories, classifier-raised ambiguity flags, and an explicit user request together give repeatable, auditable criteria. Letting the model decide independently each turn without thresholds (A) or leaving it to whoever has spare capacity (C) produces inconsistent, unaccountable behavior. Escalating only after a customer complains (B) is reactive and occurs after harm, defeating the purpose of pre-decision human review."
  },
  {
   "id": 74,
@@ -1143,7 +1216,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "When a change causes previously passing cases to break, regression testing is the discipline purpose-built to catch it, comparing current outputs against a stable reference set of known-good behavior so unintended behavioral drift is flagged. Integration tests (A) verify component interactions rather than behavioral consistency of outputs, adversarial tests (B) probe injection and abuse resistance, and smoke tests (D) only confirm the system is broadly up, not that specific outputs still match expectations."
  },
  {
   "id": 75,
@@ -1158,7 +1232,8 @@
   "ans": [
    "B",
    "D"
-  ]
+  ],
+  "exp": "The two stated requirements are a per-query cost ceiling and never exposing patient data to unauthorized roles, so the metrics that directly measure them are per-query token cost against the ceiling (D) and the role-based access-control enforcement rate measured on a red-team dataset (B). BLEU (A), throughput (C), and p95 latency (E) measure summary similarity, capacity, and speed respectively, which are legitimate quality or performance signals but do not address cost control or unauthorized data exposure."
  },
  {
   "id": 76,
@@ -1171,7 +1246,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "A delivery team that will actually build and operate the deployment needs enough to implement and run the system, so the most complete and appropriate composition is A: component responsibilities, inter-component contracts, sequence diagrams of the main flows, configuration parameters with defaults, and operational runbooks. Each other option omits load-bearing artifacts, such as contracts, diagrams, config tables, or runbooks, that an implementing and operating team would otherwise have to reverse-engineer, increasing risk and rework."
  },
  {
   "id": 77,
@@ -1184,7 +1260,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "The dominant cost driver is described as a long repeated system prompt plus large retrieved context per request, so the highest-impact fix is to move the repeated prefix into a cacheable segment (so its tokens are billed at a reduced cached rate on reuse) and trim retrieval to only the spans relevant to each query. Increasing retrieval depth (A) or adding more system-prompt content (B) enlarges the very tokens driving cost, and switching every request to the heaviest model (D) raises per-request inference cost rather than reducing input token volume."
  },
  {
   "id": 78,
@@ -1197,7 +1274,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "Responsible deployment of an assistant whose outputs are materially shaped by AI requires honest disclosure of AI involvement consistent with the organization's transparency policy plus a documented path to reach a human, which is option C. Misrepresenting the AI as human (A) undermines informed consent, refusing to answer how responses were produced (B) withholds material information users are entitled to, and disclosing only internally while hiding it from affected end users (D) defeats the purpose of transparency toward the people actually interacting with the system."
  },
  {
   "id": 79,
@@ -1212,7 +1290,8 @@
   "ans": [
    "A",
    "E"
-  ]
+  ],
+  "exp": "Under the Diligence competency, the two valid objections are that removing review for AI-generated PRs eliminates the verification mechanism that unreviewed AI output specifically requires (A), and that line count is a weak proxy for real risk since a small diff can change security, data handling, or critical logic (E). Expanding capacity to review everything (B), raising the threshold to 200 lines (C), or rejecting all AI PRs by default (D) either miss the risk-proxy flaw, still bypass verification, or overcorrect without addressing why the proposal is unsound."
  },
  {
   "id": 80,
@@ -1225,7 +1304,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "An operationally meaningful SLA must be objectively measurable and enforceable, which is why option B is correct: it specifies a metric, a threshold, an evaluation window, and a breach consequence, for example p95 latency under 800 ms over 28 days. Sentiment-based targets (A) and vague qualitative commitments (C) cannot be measured or enforced, and a target that omits the evaluation window and breach consequence (D) leaves the compliance period and remediation trigger undefined, so it cannot reliably determine whether the SLA was met or what happens if it is not."
  },
  {
   "id": 81,
@@ -1240,7 +1320,8 @@
   "ans": [
    "C",
    "D"
-  ]
+  ],
+  "exp": "HIPAA compliance centers on controlling who can access protected health information (PHI) and on contractual data-handling safeguards with any party that touches PHI. Enforcing role-based access controls (C) ensures PHI is disclosed only to authorized personnel, directly satisfying the minimum-necessary and access-control requirements. Keeping patient data out of provider training loops without a Business Associate Agreement (D) addresses HIPAA's requirement that any vendor processing PHI be bound by a BAA. Options A, B, and E concern token limits, model capability, and latency, which are performance or UX choices with no direct bearing on HIPAA's privacy and security obligations."
  },
  {
   "id": 82,
@@ -1255,7 +1336,8 @@
   "ans": [
    "A",
    "E"
-  ]
+  ],
+  "exp": "Before piloting, the design must first establish where human oversight is actually needed and how it will operate. Identifying decision points by impact and reversibility (E) is foundational because it determines which steps warrant a human check at all. Defining the sampling strategy and escalation criteria at each oversight point (A) then specifies how the pilot will operate and route exceptions. Options B (iterating on pilot findings) and C/D describe activities that logically follow the pilot or depend on the finalized design; iterating on findings cannot precede the pilot that produces them."
  },
  {
   "id": 83,
@@ -1270,7 +1352,8 @@
   "ans": [
    "A",
    "B"
-  ]
+  ],
+  "exp": "In Claude Code, configuration scopes control who a setting applies to and who can change it. Project scope under version control (A) is correct for team-shared MCP servers and permission rules because it keeps them consistent, reviewable, and shared across the team. Managed/enterprise-level configuration (B) is correct for security-critical settings that individual engineers must not override, since it enforces them centrally. The wrong options invert scope purpose: local scope (C) is per-machine and would let engineers weaken security rules, user scope (D) is personal rather than team-shared, and personal editor preferences (E) do not belong in shared project scope."
  },
  {
   "id": 84,
@@ -1283,7 +1366,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "An agent should carry only the tools that map to its actual responsibilities, because excess tools enlarge the attack surface, add latency, and increase the chance the model selects the wrong tool. Categories 1 (required for defined tasks) and 2 (frequently used, reducing handoffs) both tie directly to the agent's real workload, so C is correct. Categories 3 and 4 (occasionally useful for unrelated work, or speculative future utility) add capability the agent does not need now, contradicting the principle of least privilege and minimal, purposeful tooling reflected in the wrong answers A, B, and D."
  },
  {
   "id": 85,
@@ -1296,7 +1380,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "An Architecture Decision Record (C) is the strongest artifact because it durably captures the context, the decision, the alternatives considered, the consequences, and the date and authors, which is exactly what future auditors and new team members need to understand why a choice was made. A slide deck without rationale, a single engineer's opinion in a code comment, and an unrecorded hallway note all fail to preserve reasoning in a discoverable, authoritative form. Only the ADR provides the traceability and completeness required for audit and onboarding."
  },
  {
   "id": 86,
@@ -1309,7 +1394,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "The threat described is indirect prompt injection, where malicious instructions hidden in retrieved documents attempt to hijack the model. The most direct mitigation is to treat all retrieved content as untrusted input and apply input classifiers plus output validation (A), which addresses the injection at the point of ingestion and again at generation. Citations (B), outbound allow-lists (C), and adversarial eval scoring (D) are useful defense-in-depth measures but address grounding, exfiltration, and regression testing respectively rather than neutralizing the injected instructions themselves."
  },
  {
   "id": 87,
@@ -1322,7 +1408,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "An evaluation set drawn from a single region and tenure band does not represent the full population the hiring tool will serve, so its scores cannot be trusted to reveal disparate performance or bias across groups. The appropriate response (B) is to expand the eval set to cover the regions and tenure bands in scope and rescore before broader release. Discarding quantitative evaluation for convenience impressions (A), narrowing further to one subgroup (C), or trusting the high but unrepresentative scores (D) all reduce coverage or rigor exactly when broader, fairer measurement is required."
  },
  {
   "id": 88,
@@ -1335,7 +1422,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "A steering committee with a CFO, general counsel, and CIO needs a decision-oriented document that speaks to each stakeholder's distinct concerns (cost, legal risk, and technical/operational fit). Leading with the architectural decision and then addressing each stakeholder's primary concern directly (D) gives executives the recommendation up front and tailors the supporting detail to what each cares about. Leading with a technical diagram (A), multi-year cost tables (B), or an undifferentiated dense narrative (C) buries the decision and ignores that different stakeholders weigh different factors."
  },
  {
   "id": 89,
@@ -1350,7 +1438,8 @@
   "ans": [
    "C",
    "E"
-  ]
+  ],
+  "exp": "Sound diagnosis starts by isolating cause with controlled, evidence-based steps. Reproducing the issue with a minimal case that changes one variable at a time (C) isolates the root cause reliably, and listing configured MCP servers and inspecting their status (E) surfaces connection failures that are a common source of Claude Code problems. Raising temperature to make issues appear more often (A) adds nondeterminism rather than clarity, filing a vendor ticket before any local investigation (B) is premature, and immediately rolling back versions (D) is a blunt action taken before evidence is gathered."
  },
  {
   "id": 90,
@@ -1363,7 +1452,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "Each observation maps to a distinct business-value pillar, so answer D is the correct attribution. Observation 1 (47 to 6 minutes) is a clear efficiency gain in task time, while Observation 2 shows that time saved has not translated into more billable output, meaning the productivity or transformation benefit has not yet been realized. Observation 3 (22% cost rise from redundant retries) is a solution-cost issue caused by over-engineering, and Observation 4 (8 minutes of attorney correction per document) is an efficiency loss that partially offsets the gain in Observation 1. The other options misclassify these, for example by calling the extra review a performance-SLA issue or ignoring that the raw speed gain has not yet produced realized productivity."
  },
  {
   "id": 91,
@@ -1376,7 +1466,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "When a newly added MCP server does not appear, the fastest low-cost diagnostic is to confirm the server is actually registered using the listing command (such as claude mcp list) and then restart or reconnect the session, because MCP configuration changes are read at startup and typically require a session restart to take effect. Option C follows the principle of starting with the least disruptive check that directly targets the likely cause. Disabling all servers (A), switching product families (B), or reinstalling the OS (D) are drastic, destructive, and disproportionate to a simple registration or restart issue."
  },
  {
   "id": 92,
@@ -1389,7 +1480,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "Progressive tool discovery exposes a small, relevant subset of tools initially and loads additional definitions on demand as the task requires, which keeps prompt token usage and time-to-first-response low while preserving access to all 60 tools when needed. This directly addresses the cost of loading every definition on every request without discarding capability breadth. Summarizing all tools each turn (B) still incurs the full cost plus an extra call, always loading everything (C) accepts the very latency and token problem being solved, and a fixed five tools (D) sacrifices relevance and breadth."
  },
  {
   "id": 93,
@@ -1404,7 +1496,8 @@
   "ans": [
    "A",
    "B"
-  ]
+  ],
+  "exp": "Skills package reusable domain content and generation logic, but cross-cutting security and system concerns belong to the surrounding application. Authorization (B) must be enforced at the application layer because a Skill cannot reliably verify whether the requesting user is entitled to invoke it, and audit logging for retention (A) is a systemic compliance obligation that must persist independent of and around every invocation. The disclaimer template (D), prohibited-language list (E), and house-style formatting (C) are content and formatting responsibilities the compliance team already embedded in the Skill itself."
  },
  {
   "id": 94,
@@ -1417,7 +1510,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "A defensible GDPR posture combines a signed Data Processing Addendum with the processor, a defined retention configuration, redaction of personal data not needed for the task (data minimization and purpose limitation), and documented handling of data-subject rights such as access and erasure. Option A bundles exactly these controls. Disabling retention, redaction, and rights handling (B), using a personal tier with no DPA (C), or pasting full personal data into every prompt (D) each violate core GDPR principles like lawful processing, minimization, and accountability."
  },
  {
   "id": 95,
@@ -1432,7 +1526,8 @@
   "ans": [
    "D",
    "E"
-  ]
+  ],
+  "exp": "Good observability in a multi-agent system requires that you can attribute behavior to a specific model and version and can follow a single request end to end. Not recording model identity and version per turn (D) is a real gap because it prevents diagnosing regressions after model changes, and failing to propagate request-scoped correlation identifiers across agent and tool calls (E) breaks the ability to stitch a distributed trace together. The other findings describe present, healthy instrumentation: exported trace spans (A), latency and token metrics (B), and redacted tool-call payloads (C)."
  },
  {
   "id": 96,
@@ -1445,7 +1540,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "A security and compliance reviewer cares about how risk is identified, controlled, and evidenced, so the most aligned content is the threat model, mappings from threats to controls, explicit residual-risk acceptance criteria, and audit traceability. Option C matches that audience's mandate. Delivery schedule and roadmap (A) target product managers, implementation timelines and interfaces (B) target engineers, and business outcomes with a high-level risk summary (D) target executives, so none of those address the reviewer's primary controls-and-evidence concerns."
  },
  {
   "id": 97,
@@ -1458,7 +1554,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "A dedicated subagent is justified when there is a recurring, specialized task that benefits from a focused system prompt, narrowly scoped tool permissions, and a deliberate model choice reused across many sessions, such as ongoing database schema review. Option A captures all of these justifying factors. A one-time question (B), the absence of any recurring specialized work (C), and a desire for a single generic prompt with no specialization (D) all describe situations where the overhead of building and maintaining a subagent adds no value."
  },
  {
   "id": 98,
@@ -1471,7 +1568,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "The signal to re-enter a design cycle rather than iterate in place is when the current architecture fundamentally cannot satisfy new requirements without changing component responsibilities or core contracts, because that is a structural change rather than a tweak. Option D describes exactly that. A copy edit (A), an alert threshold adjustment (B), and a runbook clarification (C) are all localized content, configuration, or documentation changes that leave responsibilities and contracts intact, so they do not warrant a new design cycle."
  },
  {
   "id": 99,
@@ -1486,7 +1584,8 @@
   "ans": [
    "A",
    "C"
-  ]
+  ],
+  "exp": "Before you can instrument a deployment, you must first specify what you intend to measure and the targets you will hold it to: defining the metrics and the slices to monitor across normal and adversarial traffic (A) and defining the SLOs and error budgets (C). These specification steps determine what instrumentation to emit and against what standard. Tuning thresholds (B), building dashboards (D), and documenting alerts and runbooks (E) all depend on metrics and traces already flowing, so they necessarily come after instrumentation."
  },
  {
   "id": 100,
@@ -1501,7 +1600,8 @@
   "ans": [
    "B",
    "E"
-  ]
+  ],
+  "exp": "Before piloting an integrated Claude Code workflow you must complete the design and configuration work: identify which steps benefit from AI assistance versus where human authority must remain (B), and configure project-scope MCP servers, permissions, subagents, and persistent project context (E). These define the workflow and stand up the environment the pilot will exercise. Documenting handoff criteria and runbooks (A) and formal manager sign-off (C) are broader rollout concerns, and iterating on pilot findings (D) by definition happens after the pilot, not before."
  },
  {
   "id": 101,
@@ -1514,7 +1614,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "HIPAA compliance for regulated PHI workloads requires both contractual and technical safeguards. The correct choice pairs a Business Associate Agreement, which is the legally required contract making Anthropic accountable for PHI handling, with Zero Data Retention to minimize stored protected data and audit logging to demonstrate accountability. Consumer tiers like Claude Free and ad-hoc personal accounts carry no BAA and are not covered, and deliberately disabling audit logging does not satisfy HIPAA because the absence of logs actually removes the accountability and traceability the rule demands rather than creating compliance."
  },
  {
   "id": 102,
@@ -1529,7 +1630,8 @@
   "ans": [
    "A",
    "D"
-  ]
+  ],
+  "exp": "Strong architectural-decision records capture the reasoning so future readers can re-evaluate the choice. Documenting alternatives considered together with the evaluation criteria (D) shows why the selected option won and lets others judge whether the trade-offs still hold. Assigning ownership and a review cadence (A) ensures the decision is revisited when assumptions change rather than silently going stale. Mandatory senior attendance, omitting rejected alternatives, and a shared visual template are process or cosmetic concerns that do not, by themselves, make the decision communication substantively strong."
  },
  {
   "id": 103,
@@ -1542,7 +1644,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "The safest guardrail for data-modifying operations layers defense in depth: default read-only credentials, a subagent tool list limited to read-only operations, and mandatory human confirmation before any write (D). This ensures that even if the model attempts an unintended mutation, the credential and tool scope prevent it and a human gates the exception. Writing directly with no gates, granting a fully privileged credential with no confirmation, or disabling logging all remove exactly the least-privilege controls and observability that keep a production database safe."
  },
  {
   "id": 104,
@@ -1557,7 +1660,8 @@
   "ans": [
    "B",
    "D"
-  ]
+  ],
+  "exp": "Evaluation must be specified before it is executed, so the two prerequisite steps are defining the metrics and slices across representative, edge, and adversarial cases (D) and curating and labeling the dataset to match those slices (B). Without a defined measurement target and labeled reference data, there is nothing meaningful to score against. Scoring outputs, publishing dashboards with release gates, and reviewing failures with experts all necessarily come after the run, so they cannot be prerequisites to running the deployment."
  },
  {
   "id": 105,
@@ -1570,7 +1674,8 @@
   },
   "ans": [
    "D"
-  ]
+  ],
+  "exp": "A new design cycle is warranted only when the existing architecture structurally cannot satisfy new requirements without changing component responsibilities or core contracts (D). That signals the current design's boundaries are the limiting factor, not the implementation. The other options -- a runbook clarification, an alert-threshold tweak, and a customer-facing copy edit -- are localized documentation, configuration, or content changes that leave responsibilities and contracts intact, so they are handled through normal iteration rather than redesign."
  },
  {
   "id": 106,
@@ -1585,7 +1690,8 @@
   "ans": [
    "A",
    "D"
-  ]
+  ],
+  "exp": "Before piloting, the team must first understand the context and set the baseline. Identifying workflows, security boundaries, and which decisions belong to managed versus project scope (D) establishes the requirements and governance model, and defining the project-scope baseline of MCP servers, permission rules, and subagents (A) produces the concrete configuration to pilot. Organization-wide onboarding, iterating on pilot findings, and rolling out to additional teams all logically occur during or after the pilot, so they cannot precede it."
  },
  {
   "id": 107,
@@ -1598,7 +1704,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "Business value pillar analysis applies hard constraints before weighing trade-offs. Architecture X averages 4.2 seconds and violates the mandatory sub-3-second SLA, so it must be eliminated as non-compliant regardless of its quality scores (C). Architecture Y meets the SLA at 2.1 seconds, so the remaining analysis quantifies the efficiency and cost pillars -- the annual cost difference over 2 million sessions -- and judges whether the small quality delta materially affects clinical productivity. Choosing on cost alone, deferring an SLA gap to post-deployment optimization, or proposing an unanalyzed hybrid all skip the disciplined constraint-then-trade-off reasoning."
  },
  {
   "id": 108,
@@ -1611,7 +1718,8 @@
   },
   "ans": [
    "A"
-  ]
+  ],
+  "exp": "Progressive tool discovery exposes a small curated subset of tools up front and loads additional definitions on demand as the task requires (A), which cuts the per-request token load and time to first response while still keeping all 60 tools reachable. Summarizing every definition each turn adds an extra model call and still processes all tools, loading all 60 with a bigger context accepts the very cost being solved, and hard-coding five fixed tools sacrifices capability breadth by ignoring task relevance."
  },
  {
   "id": 109,
@@ -1626,7 +1734,8 @@
   "ans": [
    "D",
    "E"
-  ]
+  ],
+  "exp": "Robust guardrails need both preventive enforcement and continuous validation. Per-role tool allow-lists enforced at the orchestration layer before any tool call runs (D) stop unauthorized actions deterministically rather than relying on the model to refuse. Adversarial-input coverage in the evaluation set with regression tracking (E) verifies the guardrails actually hold and catches regressions over time. Log retention, refreshing refusal wording, and feedback channels are useful supporting hygiene but are reactive or cosmetic and do not by themselves constitute the core enforce-and-verify guardrail design."
  },
  {
   "id": 110,
@@ -1639,7 +1748,8 @@
   },
   "ans": [
    "C"
-  ]
+  ],
+  "exp": "Claude Code resolves configuration by precedence, with enterprise-managed policy at the top so administrators can enforce non-overridable settings, followed by command-line arguments, then local, then project, then user settings (C). Managed settings sit highest precisely so organizational controls cannot be undone by lower scopes, and user-level settings sit lowest as personal defaults. The other orderings misplace managed policy or invert the local/project/user hierarchy, which would let individual or project settings override enterprise policy."
  },
  {
   "id": 111,
@@ -1654,7 +1764,8 @@
   "ans": [
    "A",
    "D"
-  ]
+  ],
+  "exp": "Structured discovery is about eliciting and documenting real requirements before design and model choices are locked in, so A and D are correct. Facilitating stakeholder workshops to surface latency, accuracy, and compliance constraints (A) ensures scoping is grounded in actual operational needs, and documenting explicit success criteria and failure thresholds (D) creates measurable gates that determine whether the deployment can go to production. B is wrong because choosing a model tier from the architect's habit before gathering stakeholder input skips discovery entirely; C substitutes prototyping for requirement gathering; and E defers constraint capture, which is exactly the work discovery is meant to do up front."
  },
  {
   "id": 112,
@@ -1690,7 +1801,8 @@
     "s": "Trim retrieved passages to spans relevant to the user's question.",
     "a": "Input Preparation"
    }
-  ]
+  ],
+  "exp": "Token-management tactics map to the request lifecycle stage where they act. Persisting validated output for downstream use and validating structured output against a schema both occur after generation, so they are Output Handling. Ordering sections so cacheable content precedes per-request content and moving stable repeated content into a cacheable prefix are both about how the prompt is assembled, so they are Prompt Construction. Summarizing prior conversation history and trimming retrieved passages to relevant spans both reduce and shape the material fed in before prompt assembly, so they are Input Preparation."
  },
  {
   "id": 113,
@@ -1703,7 +1815,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "The correct principle is B: delegation scope should be driven by the type of risk, not merely the dollar amount. A small refund can still carry reputational, fraud, compliance, or precedent risk, so a 50 USD threshold does not by itself make autonomous action safe. A is too absolute since not every decision needs human review, C wrongly elevates efficiency over risk assessment, and D over-corrects by banning delegation for all financial actions, which discards legitimate automation opportunities."
  },
  {
   "id": 114,
@@ -1716,7 +1829,8 @@
   },
   "ans": [
    "B"
-  ]
+  ],
+  "exp": "The inefficiency is repeated manual re-explanation of project context in every session, and B removes it at the source by capturing conventions and architecture in a committed, project-scoped CLAUDE.md that Claude Code loads automatically each session. A abandons the tool and all its productivity, C only makes the wasteful repetition faster rather than eliminating it, and D destroys the very standards the team needs. Persistent project-context files exist precisely so shared knowledge is loaded once and reused."
  },
  {
   "id": 115,
@@ -1731,7 +1845,8 @@
   "ans": [
    "A",
    "E"
-  ]
+  ],
+  "exp": "Because the disclosure procedure must be identical across three workflows and updates several times a year, the right design centralizes it as a single authoritative artifact with one owner, so A and E are correct. Packaging it as a Claude Skill owned by the compliance team (A) puts maintenance with the domain authority, and referencing that same Skill from all three integrations (E) guarantees every workflow uses the current version after a single update. B and D create divergent copies that drift out of sync on every regulatory change, and C treats a prescriptive procedure as retrievable reference material, which does not guarantee consistent, mandatory application."
  },
  {
   "id": 116,
@@ -1746,6 +1861,7 @@
   "ans": [
    "B",
    "D"
-  ]
+  ],
+  "exp": "Continuity practices are those that carry knowledge and assets forward across phases rather than treating each phase in isolation, so B and D are correct. Carrying the evaluation framework and reference set forward (B) avoids rebuilding measurement infrastructure and keeps results comparable across iterations, and capturing lessons learned as inputs to the next phase (D) feeds improvement through the lifecycle. A and C are administrative record-keeping rather than continuity of substance, and E is actively harmful because locking early decisions prevents the healthy revisiting that new information should trigger."
  }
 ]
